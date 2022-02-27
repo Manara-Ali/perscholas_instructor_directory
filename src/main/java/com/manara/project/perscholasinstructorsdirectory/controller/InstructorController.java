@@ -13,31 +13,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manara.project.perscholasinstructorsdirectory.model.Instructor;
-import com.manara.project.perscholasinstructorsdirectory.repository.InstructorDAO;
+import com.manara.project.perscholasinstructorsdirectory.service.InstructorService;
 
 @RestController
 @RequestMapping("/api/v2")
 public class InstructorController {
 
 	// Create a field to receive the DAO
-	private InstructorDAO instructorDAO;
+	private InstructorService instructorService;
 	
 	// Use dependency inject to inject DAO into the field
 	@Autowired
-	public InstructorController(InstructorDAO instructorDAO) {
-		this.instructorDAO = instructorDAO;
+	public InstructorController(InstructorService instructorService) {
+		this.instructorService = instructorService;
 	}
 	
 	// Create routes
 	@GetMapping("/instructors")
 	public List<Instructor> getAllInstructors() {
-		return instructorDAO.findAll();
+		return instructorService.findAll();
 	}
 	
 	@GetMapping("/instructors/{id}")
 	public Instructor getInstructor(@PathVariable int id) {
 		// Find instructor
-		Instructor instructor = instructorDAO.findById(id);
+		Instructor instructor = instructorService.findById(id);
 		
 		// Assuming no instructor is found
 		if(instructor == null) throw new RuntimeException("No instructor found with id: " + id);
@@ -51,23 +51,23 @@ public class InstructorController {
 		
 		instructor.setId(0);
 		
-		Instructor newInstructor = instructorDAO.save(instructor);
+		Instructor newInstructor = instructorService.save(instructor);
 		
 		return newInstructor;
 	}
 	
 	@PutMapping("/instructors/update")
 	public Instructor updateInstructor(@RequestBody Instructor instructor) {
-		return instructorDAO.save(instructor);
+		return instructorService.save(instructor);
 	}
 	
 	@DeleteMapping("/instructors/delete/{id}")
 	public String deleteInstructor(@PathVariable int id) {
-		Instructor instructor = instructorDAO.findById(id);
+		Instructor instructor = instructorService.findById(id);
 		
 		if(instructor == null) return "No instructor found with id of: " + id;
 		
-		instructorDAO.delete(id);
+		instructorService.delete(id);
 		
 		return "Instructor " + instructor.getFirstName() + ", " + instructor.getFirstName() + " deleted!";
 	}
