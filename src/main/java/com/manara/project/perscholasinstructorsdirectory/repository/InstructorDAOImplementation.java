@@ -39,4 +39,41 @@ public class InstructorDAOImplementation implements InstructorDAO {
 		return instructorList;
 	}
 
+	@Override
+	@Transactional
+	public Instructor save(Instructor instructor) {
+		// 1. Retrieve the current session
+		Session session = entityManager.unwrap(Session.class);
+		
+		// 2. Save new instructor
+		session.saveOrUpdate(instructor);
+		
+		// 3. Return the saved instructor
+		return instructor;
+	}
+
+	@Override
+	@Transactional
+	public Instructor findById(int id) {
+		// 1. Retrieve the current session
+		Session session = entityManager.unwrap(Session.class);
+		
+		// 2. Retrieve the instructor using its id
+		Instructor instructor = session.get(Instructor.class, id);
+		
+		return instructor;
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		// 1. Retrieve the current session
+		Session session = entityManager.unwrap(Session.class);
+		
+		// 2. Find the instructor
+		Instructor instructor = session.get(Instructor.class, id);
+		
+		session.delete(instructor);
+	}
+
 }
