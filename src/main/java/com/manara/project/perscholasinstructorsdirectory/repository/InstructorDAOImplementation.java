@@ -40,7 +40,6 @@ public class InstructorDAOImplementation implements InstructorDAO {
 	}
 
 	@Override
-	@Transactional
 	public Instructor save(Instructor instructor) {
 		// 1. Retrieve the current session
 		Session session = entityManager.unwrap(Session.class);
@@ -53,7 +52,6 @@ public class InstructorDAOImplementation implements InstructorDAO {
 	}
 
 	@Override
-	@Transactional
 	public Instructor findById(int id) {
 		// 1. Retrieve the current session
 		Session session = entityManager.unwrap(Session.class);
@@ -65,7 +63,6 @@ public class InstructorDAOImplementation implements InstructorDAO {
 	}
 
 	@Override
-	@Transactional
 	public void delete(int id) {
 		// 1. Retrieve the current session
 		Session session = entityManager.unwrap(Session.class);
