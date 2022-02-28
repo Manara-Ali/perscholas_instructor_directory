@@ -1,10 +1,13 @@
 package com.manara.project.perscholasinstructorsdirectory.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,20 @@ public class Instructor {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+	
+	// ADD A ONE TO ONE RELATIONSHIP BETWEEN THE INSTRUCTOR AND INSTRUCTOR DETAIL
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="instructor_detail_id")
+	private InstructorDetail instructorDetail;
+	
+	// Create getters and setters
+	public InstructorDetail getInstructorDetail() {
+		return instructorDetail;
+	}
+
+	public void setInstructorDetail(InstructorDetail instructorDetail) {
+		this.instructorDetail = instructorDetail;
 	}
 
 	// GETTERS AND SETTERS
