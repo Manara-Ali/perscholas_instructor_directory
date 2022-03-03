@@ -1,14 +1,16 @@
 package com.manara.project.perscholasinstructorsdirectory.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,7 +31,6 @@ public class Course {
 	private String courseDescription;
 	
 	// CREATE A MANY TO ONE RELATIONSHIP BETWEEN COURSE AND INSTRUCTOR
-	
 	@ManyToOne(
 			cascade= {
 					CascadeType.PERSIST,
@@ -49,6 +50,23 @@ public class Course {
 
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
+	}
+	
+	/////////////////////// CREATE A ONE TO MANY RELATIONSHIP BETWEEN COURSE AND REVIEW
+	@OneToMany(
+			cascade=CascadeType.ALL, // If I delete the course I want the reviews for that course to be deleted too
+			mappedBy="course"
+	)
+	@JsonIgnoreProperties("course")
+	private List<Review> reviewList;
+	
+	// Getters and setters for reviewList
+	public List<Review> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(List<Review> reviewList) {
+		this.reviewList = reviewList;
 	}
 
 	// CONSTRUCTOR
