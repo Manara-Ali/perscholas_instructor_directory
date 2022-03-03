@@ -1,14 +1,21 @@
 package com.manara.project.perscholasinstructorsdirectory.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="instructor")
@@ -50,6 +57,30 @@ public class Instructor {
 	public void setInstructorDetail(InstructorDetail instructorDetail) {
 		this.instructorDetail = instructorDetail;
 	}
+	
+	// CREATE THE ONE TO MANY SIDE OF THE RELATIONSHIP FOR THE INSTRUCTOR AND COURSE
+	
+	@OneToMany(
+			cascade= {
+					CascadeType.PERSIST,
+					CascadeType.MERGE,
+					CascadeType.DETACH,
+					CascadeType.REFRESH,
+			},
+			mappedBy="instructor"
+	)
+	@JsonIgnoreProperties("instructor")
+	private List<Course> courses;
+	
+	// Add getters and setters for courses
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
 
 	// GETTERS AND SETTERS
 	public int getId() {
@@ -89,5 +120,20 @@ public class Instructor {
 	public String toString() {
 		return "Instructor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ "]";
+	}
+	
+	// Create a method to add course to instructor
+	public void addCourse(Course course) {
+		if(this.courses == null) {
+			courses = new ArrayList<Course>();
+		}
+		
+		// Add course to the list of courses
+		courses.add(course);
+		
+		this.setCourses(courses);
+		
+		// Assign this course to the instructor
+		course.setInstructor(this);
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.manara.project.perscholasinstructorsdirectory.model.Course;
 import com.manara.project.perscholasinstructorsdirectory.model.Instructor;
 import com.manara.project.perscholasinstructorsdirectory.service.InstructorService;
 
@@ -54,6 +55,20 @@ public class InstructorController {
 		Instructor newInstructor = instructorService.save(instructor);
 		
 		return newInstructor;
+	}
+	
+	// Create a method to add an instructor AND a course
+	@PostMapping("/instructors/course/add")
+	public Instructor addInstructorWithCourse(@RequestBody Instructor instructor, Course course) {
+		
+		course = instructor.getCourses().get(0);
+		
+		instructor.addCourse(course);
+		
+		// Save the instructor
+		instructorService.save(instructor);
+		
+		return instructor;
 	}
 	
 	@PutMapping("/instructors/update")

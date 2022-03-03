@@ -18,7 +18,7 @@ public class InstructorDetail {
 	private int id;
 	
 	@Column(name="linked_in_url")
-	private String lindedInUrl;
+	private String linkedInUrl;
 	
 	@Column(name="github_url")
 	private String githubUrl;
@@ -37,7 +37,7 @@ public class InstructorDetail {
 
 	public InstructorDetail(String lindedInUrl, String githubUrl, String youtubeChannel, String portfolioLink,
 			String biography) {
-		this.lindedInUrl = lindedInUrl;
+		this.linkedInUrl = lindedInUrl;
 		this.githubUrl = githubUrl;
 		this.youtubeChannel = youtubeChannel;
 		this.portfolioLink = portfolioLink;
@@ -54,11 +54,11 @@ public class InstructorDetail {
 	}
 
 	public String getLindedInUrl() {
-		return lindedInUrl;
+		return linkedInUrl;
 	}
 
 	public void setLindedInUrl(String lindedInUrl) {
-		this.lindedInUrl = lindedInUrl;
+		this.linkedInUrl = lindedInUrl;
 	}
 
 	public String getGithubUrl() {
@@ -96,7 +96,7 @@ public class InstructorDetail {
 	// toString method
 	@Override
 	public String toString() {
-		return "InstructorDetail [id=" + id + ", lindedInUrl=" + lindedInUrl + ", githubUrl=" + githubUrl
+		return "InstructorDetail [id=" + id + ", lindedInUrl=" + linkedInUrl + ", githubUrl=" + githubUrl
 				+ ", youtubeChannel=" + youtubeChannel + ", portfolioLink=" + portfolioLink + ", biography=" + biography
 				+ "]";
 	};

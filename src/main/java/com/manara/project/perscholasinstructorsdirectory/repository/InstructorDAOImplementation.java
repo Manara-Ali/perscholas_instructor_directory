@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.manara.project.perscholasinstructorsdirectory.model.Course;
 import com.manara.project.perscholasinstructorsdirectory.model.Instructor;
 
 @Repository
@@ -24,7 +25,6 @@ public class InstructorDAOImplementation implements InstructorDAO {
 	}
 	
 	@Override
-	@Transactional
 	public List<Instructor> findAll() {
 		// 1. Retrieve the current session
 		Session session = entityManager.unwrap(Session.class);
@@ -72,5 +72,12 @@ public class InstructorDAOImplementation implements InstructorDAO {
 		
 		session.delete(instructor);
 	}
+
+//	@Override
+//	public Instructor saveCourse(Instructor instructor, Course course) {
+//		// 1. Retrieve the current session
+//		Session session 
+//		return null;
+//	}
 
 }
