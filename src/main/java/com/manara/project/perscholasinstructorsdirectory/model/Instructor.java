@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -81,6 +80,29 @@ public class Instructor {
 		this.courses = courses;
 	}
 	
+	// ADD A ONE TO MANY RELATIONSHIP BETWEEN INSTRUCTOR AND TEACHER ASSISTANT
+	
+	@OneToMany(
+			cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE,
+					CascadeType.DETACH,
+					CascadeType.REFRESH
+			},
+			mappedBy="instructor"
+	)
+	@JsonIgnoreProperties("instructor")
+	private List<TeacherAssistant> teacherAssistants;
+	
+	// Create getters and setters for teacherAssistantList
+	public List<TeacherAssistant> getTeacherAssistants() {
+		return teacherAssistants;
+	}
+
+	public void setTeacherAssistants(List<TeacherAssistant> teacherAssistants) {
+		this.teacherAssistants = teacherAssistants;
+	}
+	
 
 	// GETTERS AND SETTERS
 	public int getId() {
@@ -135,5 +157,21 @@ public class Instructor {
 		
 		// Assign this course to the instructor
 		course.setInstructor(this);
+	}
+	
+	public void addTeacherAssistant(TeacherAssistant teacherAssistant) {
+		
+		// Assuming this instructor add no TA
+		if(this.teacherAssistants == null) {
+			List teacherAssistants = new ArrayList<TeacherAssistant>();
+		}
+		
+		// Add the new TA to the list of TAs
+		teacherAssistants.add(teacherAssistant);
+		
+		this.setTeacherAssistants(teacherAssistants);
+		
+		// Set this TA to the teacher
+		teacherAssistant.setInstructor(this);
 	}
 }
