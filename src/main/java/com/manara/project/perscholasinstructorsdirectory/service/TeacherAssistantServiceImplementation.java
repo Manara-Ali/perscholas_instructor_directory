@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.manara.project.perscholasinstructorsdirectory.model.Instructor;
 import com.manara.project.perscholasinstructorsdirectory.model.TeacherAssistant;
 import com.manara.project.perscholasinstructorsdirectory.repository.TeacherAssistantDAO;
 
@@ -31,6 +32,23 @@ public class TeacherAssistantServiceImplementation implements TeacherAssistantSe
 	@Transactional
 	public TeacherAssistant save(TeacherAssistant teacherAssistant) {
 		return teacherAssistantDAO.save(teacherAssistant);
+	}
+
+	@Override
+	@Transactional
+	public TeacherAssistant findById(int id) {
+		return teacherAssistantDAO.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(int id) {
+		teacherAssistantDAO.deleteById(id);
+	}
+
+	@Override
+	public TeacherAssistant save(TeacherAssistant teacherAssistant, int instructorId) {
+		return teacherAssistantDAO.save(teacherAssistant, instructorId);
 	}
 
 }
