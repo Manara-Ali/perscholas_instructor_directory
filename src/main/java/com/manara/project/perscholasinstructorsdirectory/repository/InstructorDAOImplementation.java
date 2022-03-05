@@ -72,12 +72,4 @@ public class InstructorDAOImplementation implements InstructorDAO {
 		
 		session.delete(instructor);
 	}
-
-//	@Override
-//	public Instructor saveCourse(Instructor instructor, Course course) {
-//		// 1. Retrieve the current session
-//		Session session 
-//		return null;
-//	}
-
 }

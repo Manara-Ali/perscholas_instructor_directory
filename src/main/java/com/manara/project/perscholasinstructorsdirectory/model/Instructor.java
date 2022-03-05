@@ -159,7 +159,7 @@ public class Instructor {
 		course.setInstructor(this);
 	}
 	
-	public void addTeacherAssistant(TeacherAssistant teacherAssistant) {
+	public void addTeacherAssistant(TeacherAssistant ...teacherAssistant) {
 		
 		// Assuming this instructor add no TA
 		if(this.teacherAssistants == null) {
@@ -167,11 +167,13 @@ public class Instructor {
 		}
 		
 		// Add the new TA to the list of TAs
-		teacherAssistants.add(teacherAssistant);
-		
-		this.setTeacherAssistants(teacherAssistants);
-		
-		// Set this TA to the teacher
-		teacherAssistant.setInstructor(this);
+		for(TeacherAssistant element : teacherAssistants) {
+			teacherAssistants.add(element);
+			
+			this.setTeacherAssistants(teacherAssistants);
+			
+			// Set this TA to the teacher
+			element.setInstructor(this);
+		}
 	}
 }

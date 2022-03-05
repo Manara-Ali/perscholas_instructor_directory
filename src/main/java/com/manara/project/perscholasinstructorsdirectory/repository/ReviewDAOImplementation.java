@@ -71,13 +71,6 @@ public class ReviewDAOImplementation implements ReviewDAO {
 		Course course = courseDAO.findById(id);
 		
 		return null;
-		
-//		if(course == null) throw new RuntimeException("No course found with id: " + id);
-//		
-//		// Save the session
-//		session.saveOrUpdate(review);
-//		
-//		return review;
 	}
 
 }
