@@ -35,9 +35,9 @@ public class InstructorDetail {
 	// CONSTRUCTORS
 	public InstructorDetail() {}
 
-	public InstructorDetail(String lindedInUrl, String githubUrl, String youtubeChannel, String portfolioLink,
+	public InstructorDetail(String linkedInUrl, String githubUrl, String youtubeChannel, String portfolioLink,
 			String biography) {
-		this.linkedInUrl = lindedInUrl;
+		this.linkedInUrl = linkedInUrl;
 		this.githubUrl = githubUrl;
 		this.youtubeChannel = youtubeChannel;
 		this.portfolioLink = portfolioLink;
