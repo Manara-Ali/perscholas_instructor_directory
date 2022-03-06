@@ -14,7 +14,7 @@
 	<name>perscholasinstructorsdirectory</name>
 	<description>This is a project to expose data about perscholas instructional team</description>
 	<properties>
-		<java.version>11</java.version>
+		<!-- <java.version>11</java.version> -->
 	</properties>
 	<dependencies>
 		<dependency>
