@@ -53,12 +53,12 @@ public class InstructorDetail {
 		this.id = id;
 	}
 
-	public String getLindedInUrl() {
+	public String getLinkedInUrl() {
 		return linkedInUrl;
 	}
 
-	public void setLindedInUrl(String lindedInUrl) {
-		this.linkedInUrl = lindedInUrl;
+	public void setLinkedInUrl(String linkedInUrl) {
+		this.linkedInUrl = linkedInUrl;
 	}
 
 	public String getGithubUrl() {
@@ -96,7 +96,7 @@ public class InstructorDetail {
 	// toString method
 	@Override
 	public String toString() {
-		return "InstructorDetail [id=" + id + ", lindedInUrl=" + linkedInUrl + ", githubUrl=" + githubUrl
+		return "InstructorDetail [id=" + id + ", linkedInUrl=" + linkedInUrl + ", githubUrl=" + githubUrl
 				+ ", youtubeChannel=" + youtubeChannel + ", portfolioLink=" + portfolioLink + ", biography=" + biography
 				+ "]";
 	};
