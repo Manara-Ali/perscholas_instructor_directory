@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manara.project.perscholasinstructorsdirectory.model.Course;
 import com.manara.project.perscholasinstructorsdirectory.model.Instructor;
+import com.manara.project.perscholasinstructorsdirectory.service.CourseService;
 import com.manara.project.perscholasinstructorsdirectory.service.InstructorService;
 
 @RestController
@@ -23,10 +24,14 @@ public class InstructorController {
 	// Create a field to receive the DAO
 	private InstructorService instructorService;
 	
+	// Create a field to receive Course DAO
+	private CourseService courseService;
+	
 	// Use dependency inject to inject DAO into the field
 	@Autowired
 	public InstructorController(InstructorService instructorService) {
 		this.instructorService = instructorService;
+		this.courseService = courseService;
 	}
 	
 	// Create routes
@@ -58,7 +63,7 @@ public class InstructorController {
 	}
 	
 	// Create a method to add an instructor AND a course
-	@PostMapping("/instructors/course/add")
+	@PostMapping("/instructors/courses/add")
 	public Instructor addInstructorWithCourse(@RequestBody Instructor instructor, Course course) {
 		
 		course = instructor.getCourses().get(0);
@@ -82,8 +87,34 @@ public class InstructorController {
 		
 		if(instructor == null) return "No instructor found with id of: " + id;
 		
-		instructorService.delete(id);
+		// Verify that the instructor you're about to delete does NOT have a course
+		if(instructor.getCourses() == null) {
+			
+			// If the instructor does not have a current course he is teaching, then delete the instructor
+			instructorService.delete(id);
+			
+		} else {
+			
+			// Find the course the instructor is teaching
+			List <Course> courseList = instructor.getCourses();
+			
+			
+			// Also 
+			for(Course element : courseList) {
+				// Loop through the list of course and set the instructor for these courses to null
+				element.setInstructor(null);
+
+				// Persist the instructor with all his courses removed
+				instructorService.save(instructor);
+			}
+
+		}
 		
+		// Delete the instructor without getting a SQL Foreign Key error
+		instructorService.delete(id);
+
+		// Provide feedback to user
 		return "Instructor " + instructor.getFirstName() + ", " + instructor.getFirstName() + " deleted!";
+
 	}
 }
