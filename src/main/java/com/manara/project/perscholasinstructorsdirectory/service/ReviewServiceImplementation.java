@@ -29,18 +29,21 @@ public class ReviewServiceImplementation implements ReviewService {
 	}
 
 	@Override
-	public Review save(Review review) {
-		return reviewDAO.save(review);
-	}
-
-	@Override
+	@Transactional
 	public Review findById(int id) {
 		return reviewDAO.findById(id);
 	}
 
 	@Override
+	@Transactional
 	public Review save(int id, Review review) {
 		return reviewDAO.save(id, review);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(int id) {
+		reviewDAO.deleteById(id);
 	}
 
 }

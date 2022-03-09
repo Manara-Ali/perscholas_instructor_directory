@@ -67,6 +67,25 @@ public class CourseController {
 		return newCourse;
 	}
 	
+	@PostMapping("/courses/instructors/add/{instructorId}")
+	public Course createCourseAndAssign(@RequestBody Course course, @PathVariable int instructorId) {
+		// Retrieve the instructor
+		Instructor instructor = instructorService.findById(instructorId);
+		
+		// If no instructor was found throw an exception
+		if(instructor == null) throw new RuntimeException("No instructor found with id: " + instructorId);
+		
+		// Add course to the list of instructor course
+		instructor.addCourse(course);
+		
+		// Save instructor
+		instructorService.save(instructor);
+		
+//		courseService.save(course);
+		
+		return course;
+	}
+	
 	// Create a method to update courses
 	@PutMapping("/courses/update")
 	public Course updateCourse(@RequestBody Course course) {

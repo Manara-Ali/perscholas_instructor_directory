@@ -16,6 +16,8 @@ public interface InstructorDAO {
 	// Create a method to add a new instructor
 	public Instructor save(Instructor instructor);
 	
+	
+	
 	// Create a method to delete instructor
 	public void delete(int id);
 }

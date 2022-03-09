@@ -3,6 +3,7 @@ package com.manara.project.perscholasinstructorsdirectory.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,17 +48,6 @@ public class ReviewController {
 		return review;
 	}
 	
-	@PostMapping("/reviews/add")
-	public Review save(@RequestBody Review review) {
-		
-		// Force a save rather than delete
-		review.setId(0);
-		
-		Review newReview = reviewService.save(review);
-		
-		return newReview;
-	}
-	
 	@PostMapping("/courses/{courseId}/reviews/add")
 	public Review addCourseReview(@PathVariable int courseId, @RequestBody Review review) {
 		
@@ -75,5 +65,18 @@ public class ReviewController {
 		courseService.save(course);
 		
 		return review;
+	}
+	
+	@DeleteMapping("/reviews/delete/{reviewId}")
+	public String deleteReview(@PathVariable int reviewId) {
+		// Retrieve the review
+		Review review = reviewService.findById(reviewId);
+		
+		// Verify that the review exist
+		if(review == null) throw new RuntimeException("No review found with id: " + reviewId);
+		
+		reviewService.deleteById(reviewId);
+		
+		return "Review with id " + reviewId + " was removed!";
 	}
 }

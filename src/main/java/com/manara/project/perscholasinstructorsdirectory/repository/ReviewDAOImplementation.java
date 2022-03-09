@@ -43,17 +43,6 @@ public class ReviewDAOImplementation implements ReviewDAO {
 	}
 
 	@Override
-	public Review save(Review review) {
-		// 1. Retrieve the current session
-		Session session = entityManager.unwrap(Session.class);
-
-		// 2. Save the review
-		session.saveOrUpdate(review);
-		
-		return review;
-	}
-
-	@Override
 	public Review findById(int id) {
 		// 1. Retrieve the current session
 		Session session = entityManager.unwrap(Session.class);
@@ -71,6 +60,18 @@ public class ReviewDAOImplementation implements ReviewDAO {
 		Course course = courseDAO.findById(id);
 		
 		return null;
+	}
+
+	@Override
+	public void deleteById(int id) {
+		// 1. Retrieve the current session
+		Session session = entityManager.unwrap(Session.class);
+		
+		// 2. Find the review to delete
+		Review review = session.get(Review.class, id);
+		
+		// 2. Delete the review
+		session.delete(review);
 	}
 
 }

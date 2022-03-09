@@ -14,11 +14,14 @@ public interface ReviewService {
 	public List<Review> findAll();
 	
 	// 2. Create a method to add a review
-	public Review save(Review review);
+//	public Review save(Review review);
 	
 	// 3. Create a method to retrieve a single review
 	public Review findById(int id);
 	
 	// 4. Create a method to save review to course
 	public Review save(int id, Review review);
+	
+	// 5. Create a method for deleting a review
+	public void deleteById(int id);
 }
